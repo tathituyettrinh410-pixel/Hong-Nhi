@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -63,8 +64,8 @@
   <p>🌻 Mong rằng tuổi mới sẽ mang đến cho em thật nhiều niềm vui và may mắn 🫶 </p>    
   <p>🎀 Tận hưởng ngày đặc biệt này cùng những người thân yêu nhất nhé! 🫧</p>
 
-  <!-- Nhạc Happy Birthday public domain -->
-  <audio id="bg-music" loop>
+  <!-- Nhạc Happy Birthday public domain (tự động phát) -->
+  <audio autoplay loop>
     <source src="https://vole.wtf/public_domain/happy_birthday_to_you_church_organ.mp3" type="audio/mpeg">
     Trình duyệt của bạn không hỗ trợ phát nhạc.
   </audio>
@@ -76,17 +77,7 @@
   <div id="emoji-container"></div>
 
   <script>
-    // --- PHÁT NHẠC ---
-    const audio = document.getElementById('bg-music');
-    audio.volume = 0.5; // điều chỉnh âm lượng
-    audio.play().catch(() => {
-      console.log("Trình duyệt chặn tự động phát nhạc. Nhấn vào trang để nghe.");
-      document.body.addEventListener('click', () => {
-        audio.play();
-      }, { once: true });
-    });
-
-    // --- CANVAS PHÁO HOA ---
+    // Canvas pháo hoa
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
@@ -151,8 +142,15 @@
       requestAnimationFrame(animate);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      fireworks.forEach(fw => { fw.update(); fw.draw(); });
-      particles.forEach(p => { p.update(); p.draw(); });
+      fireworks.forEach(fw => {
+        fw.update();
+        fw.draw();
+      });
+
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
     }
 
     setInterval(() => {
@@ -163,7 +161,7 @@
 
     animate();
 
-    // --- EMOJI BAY ---
+    // Emoji bay
     const emojis = ["🎉","🥳","💖","🎁","🍰","✨","😍","💐","🍭"];
     const container = document.getElementById("emoji-container");
 
@@ -174,16 +172,13 @@
       emoji.style.left = Math.random() * window.innerWidth + "px";
       emoji.style.animationDuration = (4 + Math.random() * 4) + "s";
       container.appendChild(emoji);
-      setTimeout(() => { emoji.remove(); }, 6000);
+
+      setTimeout(() => {
+        emoji.remove();
+      }, 6000);
     }
 
     setInterval(createEmoji, 700);
-
-    // --- ĐIỀU CHỈNH KHI RESIZE ---
-    window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    });
   </script>
 </body>
 </html>
